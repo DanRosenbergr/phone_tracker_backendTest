@@ -12,6 +12,20 @@ app.get("/", (req, res) => {
 });
 
 app.use(express.json());
+
+app.get("/db-test", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT 1 AS connected");
+    res.send(
+      "Připojení k databázi na Renderu funguje! Výsledek: " +
+        JSON.stringify(result.rows)
+    );
+  } catch (error) {
+    console.error("Chyba připojení k databázi:", error);
+    res.status(500).send("Nepodařilo se připojit k databázi na Renderu.");
+  }
+});
+
 app.use("/phone-tracker", btsDataRoutes);
 app.use("/phone-tracker", gpsDataRoutes);
 
