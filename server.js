@@ -1,5 +1,10 @@
 // server.js
 require("dotenv").config();
+const { Pool } = require("pg");
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
+});
 
 //nacteni zavislosti:
 const express = require("express");
@@ -13,16 +18,11 @@ app.get("/", (req, res) => {
 
 app.use(express.json());
 
-app.get("/db-test", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT 1 AS connected");
-    res.send(
-      "Připojení k databázi na Renderu funguje! Výsledek: " +
-        JSON.stringify(result.rows)
-    );
-  } catch (error) {
-    console.error("Chyba připojení k databázi:", error);
-    res.status(500).send("Nepodařilo se připojit k databázi na Renderu.");
+pool.query("SELECT NOW()", (err, res) => {
+  if (err) {
+    console.error("Chyba připojení k databázi:", err);
+  } else {
+    console.log("Úspěšné připojení k databázi, čas:", res.rows[0].now);
   }
 });
 
