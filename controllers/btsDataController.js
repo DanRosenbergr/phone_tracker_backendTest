@@ -22,8 +22,7 @@ exports.saveBTSData = async (req, res) => {
     res.status(500).json({ error: "Chyba při ukládání dat." });
   }
 };
-
-// Načtení všech BTS záznamů
+// Nacteni vsech BTS zaznamu
 exports.getBTSData = async (req, res) => {
   try {
     const result = await pool.query("SELECT id, name FROM bts_data");
@@ -33,8 +32,7 @@ exports.getBTSData = async (req, res) => {
     res.status(500).json({ message: "Chyba při načítání dat BTS" });
   }
 };
-
-// Načtení jednoho BTS záznamu podle ID
+// Nacteni jednoho BTS zaznamu dle id
 exports.getSingleBTSData = async (req, res) => {
   const { id } = req.params;
   try {
@@ -48,6 +46,7 @@ exports.getSingleBTSData = async (req, res) => {
     res.status(500).json({ message: "Chyba při načítání jednoho záznamu BTS" });
   }
 };
+// Smazani zaznamu dle id
 exports.deleteBTSData = async (req, res) => {
   const { id } = req.params;
   try {

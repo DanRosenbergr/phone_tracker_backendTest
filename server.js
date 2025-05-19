@@ -8,9 +8,18 @@ const pool = new Pool({
 
 //nacteni zavislosti:
 const express = require("express");
+const cors = require("cors");
 const btsDataRoutes = require("./routes/btsDataRoutes");
 const gpsDataRoutes = require("./routes/gpsDataRoutes");
 const app = express();
+
+app.use(
+  cors({
+    origin: "https://phone-tracker-g4kc.onrender.com", // URL tvého frontend
+    methods: ["GET", "POST", "DELETE", "PUT"],
+    credentials: true,
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("Server běží správně!");

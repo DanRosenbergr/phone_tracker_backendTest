@@ -23,7 +23,7 @@ exports.saveGPSData = async (req, res) => {
   }
 };
 
-// Načtení všech BTS záznamů
+// Nacteni vsech GPS zaznamu
 exports.getGPSData = async (req, res) => {
   try {
     const result = await pool.query("SELECT id, name FROM gps_data");
@@ -34,7 +34,7 @@ exports.getGPSData = async (req, res) => {
   }
 };
 
-// Načtení jednoho BTS záznamu podle ID
+// Jeden GPS zaznam
 exports.getSingleGPSData = async (req, res) => {
   const { id } = req.params;
   try {
@@ -48,6 +48,7 @@ exports.getSingleGPSData = async (req, res) => {
     res.status(500).json({ message: "Chyba při načítání jednoho záznamu GPS" });
   }
 };
+// Smazani jednoho zaznamu
 exports.deleteGPSData = async (req, res) => {
   const { id } = req.params;
   try {
