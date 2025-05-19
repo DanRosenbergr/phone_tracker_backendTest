@@ -18,11 +18,15 @@ app.get("/", (req, res) => {
 
 app.use(express.json());
 
-pool.query("SELECT NOW()", (err, res) => {
-  if (err) {
+app.get("/test-db", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT NOW()");
+    res.send(
+      `Připojení k databázi je funkční. Čas na serveru: ${result.rows[0].now}`
+    );
+  } catch (err) {
     console.error("Chyba připojení k databázi:", err);
-  } else {
-    console.log("Úspěšné připojení k databázi, čas:", res.rows[0].now);
+    res.status(500).send("Nepodařilo se připojit k databázi.");
   }
 });
 
