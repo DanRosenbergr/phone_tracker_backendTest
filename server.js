@@ -39,8 +39,8 @@ app.get("/test-db", async (req, res) => {
   }
 });
 
-app.use("/phone-tracker", btsDataRoutes);
-app.use("/phone-tracker", gpsDataRoutes);
+app.use("/", btsDataRoutes);
+app.use("/", gpsDataRoutes);
 
 //Nastavení portu a spuštění serveru
 const PORT = process.env.PORT || 5000;
