@@ -7,7 +7,7 @@ exports.saveGPSData = async (req, res) => {
   const { nameGps, data } = req.body;
   try {
     const query = `
-      INSERT INTO gps_data (name, bts_json) 
+      INSERT INTO gps_data (name, gps_json) 
       VALUES ($1, $2)
       RETURNING id;
     `;
@@ -39,7 +39,7 @@ exports.getSingleGPSData = async (req, res) => {
   const { id } = req.params;
   try {
     const result = await pool.query(
-      "SELECT bts_json FROM gps_data WHERE id = $1",
+      "SELECT gps_json FROM gps_data WHERE id = $1",
       [id]
     );
     res.status(200).json(result.rows[0].bts_json);
