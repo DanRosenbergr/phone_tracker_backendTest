@@ -42,7 +42,7 @@ exports.getSingleGPSData = async (req, res) => {
       "SELECT gps_json FROM gps_data WHERE id = $1",
       [id]
     );
-    res.status(200).json(result.rows[0].bts_json);
+    res.status(200).json(result.rows[0].gps_json);
   } catch (error) {
     console.error("Chyba při načítání jednoho záznamu GPS:", error);
     res.status(500).json({ message: "Chyba při načítání jednoho záznamu GPS" });
